@@ -4,6 +4,7 @@ import { useAllPokemon } from "../modules";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { Body, Headline } from "@sumup/circuit-ui";
+import { Button } from "../components/Button/Button";
 
 const Price = styled.p(
   ({ theme }) => css`
@@ -31,6 +32,7 @@ const Home: NextPage = () => {
         </Headline>
         <Price>9,99 €</Price>
         <Body>A description of my product.</Body>
+        <Button>Click me</Button>
       </section>
     </div>
   );

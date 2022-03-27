@@ -13,8 +13,14 @@ const basicStyles = css`
   padding: 1rem 0.5rem;
 `;
 
-const Basic = styled.div`
+const Basic_ = styled.div`
   ${basicStyles};
 `;
 
-export { Basic, basicStyles };
+export function Basic() {
+  return (
+    <>
+      <Basic_></Basic_>
+    </>
+  );
+}
