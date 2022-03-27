@@ -8,6 +8,7 @@
     "start": "next start",
     "format": "yarn prettier --write .",
     "lint": "next lint",
+    "type-check": "tsc --pretty --noEmit",
     "prepare": "husky install"
   },
   "dependencies": {
