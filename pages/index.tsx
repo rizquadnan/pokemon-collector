@@ -1,8 +1,13 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { Animated, Basic, bounce, Combined } from "../components"; // TODO: refactor to absolute paths
+import { useAllPokemon } from "../modules";
 
 const Home: NextPage = () => {
+  const allPokemon = useAllPokemon();
+
+  console.log("allPokemon", allPokemon);
+
   return (
     <div>
       <Head>
