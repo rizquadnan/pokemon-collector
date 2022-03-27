@@ -1,7 +1,16 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { Animated, Basic, bounce, Combined } from "../components"; // TODO: refactor to absolute paths
 import { useAllPokemon } from "../modules";
+import styled from "@emotion/styled";
+import { css } from "@emotion/react";
+import { Body, Headline } from "@sumup/circuit-ui";
+
+const Price = styled.p(
+  ({ theme }) => css`
+    font-size: ${theme.typography.headline.one};
+    font-weight: bold;
+  `
+);
 
 const Home: NextPage = () => {
   const allPokemon = useAllPokemon();
@@ -16,11 +25,13 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Basic>Cool Styles</Basic>
-      <Combined>
-        With <code>:hover</code>.
-      </Combined>
-      <Animated animation={bounce}>Let&apos;s bounce.</Animated>
+      <section>
+        <Headline as="h1" size="four">
+          My product
+        </Headline>
+        <Price>9,99 €</Price>
+        <Body>A description of my product.</Body>
+      </section>
     </div>
   );
 };

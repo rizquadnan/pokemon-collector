@@ -1,14 +1,24 @@
 import type { AppProps } from "next/app";
 import { ApolloProvider } from "@apollo/client";
+import Head from "next/head";
 
-import { GlobalStyles, apolloClient } from "../shared"; // TODO: refactor using absolute import
+import { apolloClient, ThemeProvider } from "../shared"; // TODO: refactor using absolute import
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ApolloProvider client={apolloClient}>
-      <GlobalStyles />
-      <Component {...pageProps} />
-    </ApolloProvider>
+    <>
+      <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+        />
+      </Head>
+      <ApolloProvider client={apolloClient}>
+        <ThemeProvider>
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </ApolloProvider>
+    </>
   );
 }
 
