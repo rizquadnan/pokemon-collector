@@ -1,5 +1,6 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { Button } from "./Button";
+import { children } from "./mockData";
 
 export default {
   title: "Button",
@@ -10,5 +11,5 @@ const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  children: "Click me!",
+  children,
 };

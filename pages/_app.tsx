@@ -1,8 +1,7 @@
 import type { AppProps } from "next/app";
-import { ApolloProvider } from "@apollo/client";
 import Head from "next/head";
 
-import { apolloClient, ThemeProvider } from "../shared"; // TODO: refactor using absolute import
+import { GraphqlProvider, ThemeProvider } from "../shared"; // TODO: refactor using absolute import
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -13,11 +12,11 @@ function MyApp({ Component, pageProps }: AppProps) {
           content="width=device-width, initial-scale=1.0, viewport-fit=cover"
         />
       </Head>
-      <ApolloProvider client={apolloClient}>
+      <GraphqlProvider>
         <ThemeProvider>
           <Component {...pageProps} />
         </ThemeProvider>
-      </ApolloProvider>
+      </GraphqlProvider>
     </>
   );
 }
