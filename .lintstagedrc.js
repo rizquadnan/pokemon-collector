@@ -6,11 +6,12 @@ const buildEslintCommand = (filenames) =>
     .join(" --file ")}`;
 
 module.exports = {
-  "*": "yarn format",
   "*.{ts,tsx}": [
+    "yarn format",
     buildEslintCommand,
     // TODO: find way to use yarn type-check here to reuse scripts
     // currently using script makes not respecting tsconfig.json
     "tsc-files --pretty --noEmit",
   ],
+  "*": "yarn format", // TODO: find way to only format non ts tsx file here
 };
