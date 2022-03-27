@@ -13,5 +13,4 @@ module.exports = {
     // currently using script makes not respecting tsconfig.json
     "tsc-files --pretty --noEmit",
   ],
-  "*": "yarn format", // TODO: find way to only format non ts tsx file here
 };
