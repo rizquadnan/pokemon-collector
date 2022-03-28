@@ -5,12 +5,7 @@ import {
 
 interface ButtonProps extends ButtonProps_ {}
 const Button = (props: ButtonProps_) => {
-  return (
-    <div>
-      <Button_ {...props} />
-      <span>Test chromatic ui change</span>
-    </div>
-  );
+  return <Button_ {...props} />;
 };
 
 export type { ButtonProps };
