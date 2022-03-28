@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
-const basicStyles = css`
+export const basicStyles = css`
   background-color: white;
   color: cornflowerblue;
   border: 1px solid lightgreen;
