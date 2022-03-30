@@ -3,9 +3,21 @@ import {
   ButtonProps as ButtonProps_,
 } from "@sumup/circuit-ui";
 
-interface ButtonProps extends ButtonProps_ {}
-const Button = (props: ButtonProps_) => {
-  return <Button_ {...props} />;
+type Variant = "primary" | "secondary";
+interface ButtonProps extends Omit<ButtonProps_, "variant"> {
+  variant?: Variant;
+}
+
+const getVariant = (variant: Variant): ButtonProps_["variant"] => {
+  if (variant === "primary") {
+    return "secondary";
+  } else if (variant === "secondary") {
+    return "tertiary";
+  }
+};
+
+const Button = ({ variant = "primary", ...props }: ButtonProps) => {
+  return <Button_ {...props} variant={getVariant(variant)} />;
 };
 
 export type { ButtonProps };
