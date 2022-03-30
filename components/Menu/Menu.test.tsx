@@ -1,4 +1,5 @@
 import { render, screen } from "../../tesUtils"; // TODO: replace this with absolute import
+import { HOME_MENU_TITLE, MY_POKEMON_MENU_TITLE } from "./constants";
 import { Menu } from "./Menu";
 import { requiredProps } from "./requiredProps";
 describe("Menu", () => {
@@ -13,5 +14,17 @@ describe("Menu", () => {
     const buttons = screen.getAllByRole("button");
 
     expect(buttons.length).toBe(2);
+  });
+
+  it("has a home menu button", () => {
+    render(<Menu {...requiredProps} />);
+
+    expect(screen.getByText(HOME_MENU_TITLE)).toBeInTheDocument();
+  });
+
+  it("has a my pokemon menu button", () => {
+    render(<Menu {...requiredProps} />);
+
+    expect(screen.getByText(MY_POKEMON_MENU_TITLE)).toBeInTheDocument();
   });
 });

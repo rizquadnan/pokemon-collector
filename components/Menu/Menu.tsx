@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { Button } from "@sumup/circuit-ui";
+import { HOME_MENU_TITLE, MY_POKEMON_MENU_TITLE } from "./constants";
 
 const MenuWrapper = styled.div({
   height: "100%",
@@ -18,10 +19,10 @@ const Menu = ({ onClickHome, onClickMyPokemon }: MenuProps) => {
   return (
     <MenuWrapper>
       <Button variant="tertiary" onClick={onClickHome}>
-        Home
+        {HOME_MENU_TITLE}
       </Button>
       <Button variant="tertiary" onClick={onClickMyPokemon}>
-        My Pokemon
+        {MY_POKEMON_MENU_TITLE}
       </Button>
     </MenuWrapper>
   );
