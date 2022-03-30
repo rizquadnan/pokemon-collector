@@ -1,6 +1,6 @@
 import { css, ThemeProvider as ThemeProvider_ } from "@emotion/react";
 import { light } from "@sumup/design-tokens";
-import { BaseStyles } from "@sumup/circuit-ui";
+import { BaseStyles, ModalProvider } from "@sumup/circuit-ui";
 import styled from "@emotion/styled";
 import { ReactNode } from "react";
 
@@ -20,7 +20,9 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
   return (
     <ThemeProvider_ theme={light}>
       <BaseStyles />
-      <Layout>{children}</Layout>
+      <ModalProvider>
+        <Layout>{children}</Layout>
+      </ModalProvider>
     </ThemeProvider_>
   );
 };
