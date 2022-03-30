@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { Button } from "./Button";
-import { children } from "./mockData";
+import { requiredProps } from "./requiredProp";
 
 export default {
   title: "Button",
@@ -10,6 +10,10 @@ export default {
 const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {
-  children,
+Default.args = requiredProps;
+
+export const Secondary = Template.bind({});
+Secondary.args = {
+  ...requiredProps,
+  variant: "secondary",
 };
