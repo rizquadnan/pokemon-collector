@@ -7,3 +7,4 @@ export * from "./Image";
 export * from "./Button";
 export * from "./CardPokemon";
 export * from "./Input";
+export * from "./Tag";
