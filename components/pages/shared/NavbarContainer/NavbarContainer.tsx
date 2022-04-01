@@ -31,7 +31,15 @@ const NavbarContainer = () => {
   };
 
   return (
-    <div css={{ position: "fixed", top: "0", left: "0", width: "100%" }}>
+    <div
+      css={{
+        position: "fixed",
+        top: "0",
+        left: "0",
+        width: "100%",
+        zIndex: 600,
+      }}
+    >
       <Navbar onClickMenu={handleClick} />
     </div>
   );
