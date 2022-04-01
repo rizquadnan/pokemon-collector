@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 import { useTheme } from "@emotion/react";
 
 import { Title } from "../..";
-import { CardPokemon, CardPokemonProps } from "../../CardPokemon";
+import { CardPokemon } from "../../CardPokemon";
 import { Layout } from "../shared";
 import { mediaQueries } from "../../../shared";
 import { CardPokemonItem } from "../../../modules";
@@ -15,6 +15,7 @@ type PokemonListPageProps = {
   renderSearchInput?: () => ReactNode;
   renderPagination?: () => ReactNode;
   isLoading?: boolean;
+  onClickRelease?: (itemId: number) => void;
   onClickDetail: (itemId: number) => void;
   variant: "home-page" | "my-pokemon-page";
 };
@@ -46,6 +47,8 @@ const LoadingContainer = styled.section({
 
 const PokemonListPage = (props: PokemonListPageProps) => {
   const theme = useTheme();
+
+  const resolvedOnClickRelease = props.onClickRelease ?? ((_) => null);
 
   return (
     <Layout>
@@ -110,7 +113,7 @@ const PokemonListPage = (props: PokemonListPageProps) => {
                     ? "with-release"
                     : "detail-only"
                 }
-                onClickRelease={() => null}
+                onClickRelease={() => resolvedOnClickRelease(item.id)}
                 onClickDetail={() => props.onClickDetail(item.id)}
               />
             ))}

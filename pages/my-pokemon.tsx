@@ -1,14 +1,19 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { PokemonListPage, pokemonList } from "../components";
+import { PokemonListPage } from "../components";
 import { CardPokemonItem, MY_POKEMON_LIST_STORAGE_KEY } from "../modules";
 import { useLocalStorage } from "../shared";
 
 const Home: NextPage = () => {
-  const { value: myPokemonList } = useLocalStorage<CardPokemonItem[]>(
-    MY_POKEMON_LIST_STORAGE_KEY,
-    []
-  );
+  const { value: myPokemonList, setValue: setMyPokemonList } = useLocalStorage<
+    CardPokemonItem[]
+  >(MY_POKEMON_LIST_STORAGE_KEY, []);
+
+  const handleRelease = (pokemonId: number) => {
+    setMyPokemonList((prevValue) =>
+      prevValue.filter((item) => item.id !== pokemonId)
+    );
+  };
 
   return (
     <>
@@ -23,6 +28,7 @@ const Home: NextPage = () => {
         myPokemonListCount={myPokemonList.length}
         variant="my-pokemon-page"
         onClickDetail={(itemId) => console.log(itemId)}
+        onClickRelease={handleRelease}
       />
     </>
   );
