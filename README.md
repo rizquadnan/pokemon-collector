@@ -19,7 +19,7 @@ Collect your favourite pokemons! <br />
 - Prettier
 - Husky
 - Commitlint
-- Github actions
+- Github Actions (CI/CD)
 
 # How to run
 ## Prerequiste
