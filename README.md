@@ -1,6 +1,6 @@
 # About
 Collect your favourite pokemons! <br />
-Built with: Next.js, Poke API GraphQL, Emotion, Circuit UI
+Built with: Next.js, Poke API GraphQL, Emotion, Circuit UI, Jest, React Testing Library, Storybook
 
 # How to run
 ## Prerequiste
