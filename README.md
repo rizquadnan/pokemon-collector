@@ -1,6 +1,6 @@
 # About
 Collect your favourite pokemons! <br />
-Built with: <br />
+## Built with
 - Typescript
 - Fully React Function Component + React Hooks
 - Next.js
@@ -10,7 +10,7 @@ Built with: <br />
 - Circuit UI
 - Local Storage API
 
-The codebase is maintained with help of: <br />
+## The codebase is maintained with help of
 - Jest
 - React Testing Library
 - Storybook
@@ -19,6 +19,7 @@ The codebase is maintained with help of: <br />
 - Prettier
 - Husky
 - Commitlint
+- Github actions
 
 # How to run
 ## Prerequiste
