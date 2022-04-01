@@ -16,7 +16,14 @@ const Image = ({ unoptimized = true, ...props }: ImageProps) => {
     setImageSrc(imagePlaceholder);
   };
 
-  return <Image_ {...props} src={imageSrc} onError={handleError} />;
+  return (
+    <Image_
+      {...props}
+      unoptimized={unoptimized}
+      src={imageSrc}
+      onError={handleError}
+    />
+  );
 };
 
 export type { ImageProps };
