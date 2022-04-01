@@ -7,7 +7,7 @@ import styled from "@emotion/styled";
 import { Headline, Spinner, useModal } from "@sumup/circuit-ui";
 import { useTheme } from "@emotion/react";
 
-import { Image, Tag, Title } from "../..";
+import { CustomLink, Image, Tag, Title } from "../..";
 import { Layout } from "../shared";
 import { colors, mediaQueries } from "../../../shared";
 import { Button } from "../../Button";
@@ -64,6 +64,11 @@ const Content = (props: Omit<PokemonDetailPageProps, "isLoading">) => {
 
   return (
     <>
+      <CustomLink href="/">
+        <Button css={{ marginTop: theme.spacings.giga }}>
+          Go to home page
+        </Button>
+      </CustomLink>
       <Hero>
         <Title
           as="h1"
@@ -134,11 +139,13 @@ const LoadingContainer = styled.section({
 });
 
 const PokemonDetailPage = (props: PokemonDetailPageProps) => {
+  const theme = useTheme();
+
   return (
     <Layout>
       {props.isLoading ? (
         <LoadingContainer>
-          <Spinner />
+          <Spinner css={{ color: theme.colors.white }} />
         </LoadingContainer>
       ) : (
         <Content {...props} />

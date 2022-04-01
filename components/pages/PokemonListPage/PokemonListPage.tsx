@@ -3,8 +3,7 @@ import { Headline, Spinner } from "@sumup/circuit-ui";
 import { ReactNode } from "react";
 import { useTheme } from "@emotion/react";
 
-import { Title } from "../..";
-import { CardPokemon } from "../../CardPokemon";
+import { Title, Button, CustomLink, CardPokemon } from "../..";
 import { Layout } from "../shared";
 import { colors, mediaQueries } from "../../../shared";
 import { CardPokemonItem } from "../../../modules";
@@ -22,15 +21,15 @@ type PokemonListPageProps = {
 
 const Hero = styled.section(
   {
-    height: "30vh",
-    [mediaQueries[0]]: {
-      height: "40vh",
-    },
+    minHeight: "500px",
   },
-  (props) => ({ paddingTop: props.theme.spacings.giga })
+  (props) => ({ padding: `${props.theme.spacings.giga} 0` })
 );
 
 const PokemonItemContainer = styled.section({
+  "& > *:not(:last-child)": {
+    marginBottom: "16px",
+  },
   "@media (min-width: 400px)": {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fill, minmax(300px , 1fr))",
@@ -52,6 +51,13 @@ const PokemonListPage = (props: PokemonListPageProps) => {
 
   return (
     <Layout>
+      {props.variant === "my-pokemon-page" && (
+        <CustomLink href="/">
+          <Button css={{ marginTop: theme.spacings.giga }}>
+            Go to home page
+          </Button>
+        </CustomLink>
+      )}
       {props.variant === "home-page" && (
         <Hero>
           <Title
@@ -77,6 +83,11 @@ const PokemonListPage = (props: PokemonListPageProps) => {
           <Headline as="h2" css={{ color: theme.colors.bodyBg }}>
             My owned pokemon: {props.myPokemonListCount}
           </Headline>
+          <CustomLink href="/my-pokemon">
+            <Button css={{ marginTop: theme.spacings.giga }}>
+              See my pokemon
+            </Button>
+          </CustomLink>
         </Hero>
       )}
 
@@ -91,7 +102,7 @@ const PokemonListPage = (props: PokemonListPageProps) => {
 
       {props.isLoading ? (
         <LoadingContainer>
-          <Spinner />
+          <Spinner css={{ color: theme.colors.white }} />
         </LoadingContainer>
       ) : (
         <>
@@ -101,6 +112,9 @@ const PokemonListPage = (props: PokemonListPageProps) => {
                 marginTop:
                   props.variant === "my-pokemon-page" ? theme.spacings.giga : 0,
                 marginBottom: theme.spacings.giga,
+                position: "sticky",
+                top: "80px",
+                zIndex: 601,
               }}
             >
               {props.renderSearchInput()}

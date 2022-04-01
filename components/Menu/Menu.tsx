@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { Button } from "@sumup/circuit-ui";
-import Link from "next/link";
-import { ReactNode } from "react";
+import { CustomLink } from "..";
 import { HOME_MENU_TITLE, MY_POKEMON_MENU_TITLE } from "./constants";
 
 const MenuWrapper = styled.div({
@@ -17,18 +16,6 @@ type MenuProps = {
   onClickMyPokemon: () => void;
 };
 
-type CustomLinkProps = {
-  href: string;
-  children: ReactNode;
-};
-
-const CustomLink = (props: CustomLinkProps) => {
-  return (
-    <Link href={props.href} passHref>
-      <a css={{ textDecoration: "none" }}>{props.children}</a>
-    </Link>
-  );
-};
 const Menu = ({ onClickHome, onClickMyPokemon }: MenuProps) => {
   return (
     <MenuWrapper>
