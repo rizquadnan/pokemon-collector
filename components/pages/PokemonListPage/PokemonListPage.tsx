@@ -112,6 +112,9 @@ const PokemonListPage = (props: PokemonListPageProps) => {
                 marginTop:
                   props.variant === "my-pokemon-page" ? theme.spacings.giga : 0,
                 marginBottom: theme.spacings.giga,
+                position: "sticky",
+                top: "80px",
+                zIndex: 601,
               }}
             >
               {props.renderSearchInput()}
