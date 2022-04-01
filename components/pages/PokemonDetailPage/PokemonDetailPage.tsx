@@ -9,7 +9,7 @@ import { useTheme } from "@emotion/react";
 
 import { Image, Tag, Title } from "../..";
 import { Layout } from "../shared";
-import { mediaQueries } from "../../../shared";
+import { colors, mediaQueries } from "../../../shared";
 import { Button } from "../../Button";
 
 type PokemonMove = {
@@ -79,6 +79,7 @@ const Content = (props: Omit<PokemonDetailPageProps, "isLoading">) => {
               lineHeight: "110px",
             },
             marginBottom: theme.spacings.giga,
+            color: colors.secondary,
           }}
         >
           {props.pokemonName}
@@ -92,7 +93,9 @@ const Content = (props: Omit<PokemonDetailPageProps, "isLoading">) => {
       </Hero>
 
       <section css={{ marginBottom: theme.spacings.giga }}>
-        <Headline as="h2">Pokemon Type</Headline>
+        <Headline as="h2" css={{ color: theme.colors.white }}>
+          Pokemon Type
+        </Headline>
         <PokemonInfoListContainer>
           {props.pokemonTypeList.map((type, index) => (
             <Tag key={`${index}=${type.id}`}>{type.name}</Tag>
@@ -101,7 +104,9 @@ const Content = (props: Omit<PokemonDetailPageProps, "isLoading">) => {
       </section>
 
       <section css={{ paddingBottom: theme.spacings.exa }}>
-        <Headline as="h2">MoveList</Headline>
+        <Headline as="h2" css={{ color: theme.colors.white }}>
+          Move List
+        </Headline>
         <PokemonInfoListContainer>
           {props.pokemonMovesList.map((move, index) => (
             <Tag key={`${index}=${move.id}`}>{move.name}</Tag>
@@ -110,7 +115,10 @@ const Content = (props: Omit<PokemonDetailPageProps, "isLoading">) => {
       </section>
 
       <CatchButtonContainer>
-        <Button css={{ width: "100%" }} onClick={props.onCatchPokemon}>
+        <Button
+          css={{ width: "100%", backgroundColor: colors.secondary }}
+          onClick={props.onCatchPokemon}
+        >
           Catch this Pokemon
         </Button>
       </CatchButtonContainer>

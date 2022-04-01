@@ -6,7 +6,7 @@ import { useTheme } from "@emotion/react";
 import { Title } from "../..";
 import { CardPokemon } from "../../CardPokemon";
 import { Layout } from "../shared";
-import { mediaQueries } from "../../../shared";
+import { colors, mediaQueries } from "../../../shared";
 import { CardPokemonItem } from "../../../modules";
 
 type PokemonListPageProps = {
@@ -68,19 +68,23 @@ const PokemonListPage = (props: PokemonListPageProps) => {
                 lineHeight: "110px",
               },
               marginBottom: theme.spacings.giga,
+              color: colors.secondary,
             }}
           >
             Collect your favourite pokemon!
           </Title>
 
-          <Headline as="h2">
+          <Headline as="h2" css={{ color: theme.colors.bodyBg }}>
             My owned pokemon: {props.myPokemonListCount}
           </Headline>
         </Hero>
       )}
 
       {props.variant === "my-pokemon-page" && (
-        <Headline css={{ marginTop: theme.spacings.giga }} as="h2">
+        <Headline
+          css={{ marginTop: theme.spacings.giga, color: colors.secondary }}
+          as="h2"
+        >
           My owned pokemon: {props.myPokemonListCount}
         </Headline>
       )}
