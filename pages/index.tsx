@@ -1,6 +1,10 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { pokemonListToCardPokemonList, usePokemonList } from "../modules";
+import {
+  CardPokemonItem,
+  pokemonListToCardPokemonList,
+  usePokemonList,
+} from "../modules";
 import {
   PokemonListPage,
   Pagination,
@@ -8,11 +12,16 @@ import {
   SearchContainer,
 } from "../components";
 import { useState } from "react";
-import { getPageOffset, getTotalPages } from "../shared";
+import { getPageOffset, getTotalPages, useLocalStorage } from "../shared";
 import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
   const router = useRouter();
+
+  const { value: myPokemonList } = useLocalStorage<CardPokemonItem[]>(
+    "my-pokemon-list",
+    []
+  );
 
   const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState("");
@@ -60,7 +69,7 @@ const Home: NextPage = () => {
       </Head>
 
       <PokemonListPage
-        myPokemonListCount={0}
+        myPokemonListCount={myPokemonList.length}
         isLoading={isLoading}
         pokemonList={pokemonList}
         renderSearchInput={renderSearchInput}

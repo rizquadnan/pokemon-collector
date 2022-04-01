@@ -1,8 +1,15 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { PokemonListPage, pokemonList } from "../components";
+import { CardPokemonItem } from "../modules";
+import { useLocalStorage } from "../shared";
 
 const Home: NextPage = () => {
+  const { value: myPokemonList } = useLocalStorage<CardPokemonItem[]>(
+    "my-pokemon-list",
+    []
+  );
+
   return (
     <>
       <Head>
@@ -12,8 +19,8 @@ const Home: NextPage = () => {
       </Head>
 
       <PokemonListPage
-        pokemonList={pokemonList}
-        myPokemonListCount={0}
+        pokemonList={myPokemonList}
+        myPokemonListCount={myPokemonList.length}
         variant="my-pokemon-page"
         onClickDetail={(itemId) => console.log(itemId)}
       />
