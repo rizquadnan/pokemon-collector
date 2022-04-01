@@ -9,3 +9,6 @@ export * from "./CardPokemon";
 export * from "./Input";
 export * from "./Tag";
 export * from "./Pagination";
+export * from "./SearchInput";
+
+export * from "./pages";
