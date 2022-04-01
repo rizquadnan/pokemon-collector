@@ -1,14 +1,15 @@
 import { useModal, useNotificationToast } from "@sumup/circuit-ui";
 import type { NextPage } from "next";
 import Head from "next/head";
+import { useRouter } from "next/router";
+import { PokemonDetailPage, PokemonDetailModalContent } from "../../components";
 import {
-  PokemonDetailPage,
-  PokemonDetailModalContent,
-  heroImageSrc,
-  pokemonName,
-  pokemonMoves,
-  pokemonTypes,
-} from "../../components";
+  getPokemonImageSrc,
+  pokemonMoveListToTagPokemonMoveList,
+  pokemonTypeListToTagPokemonTypeList,
+  usePokemonDetail,
+} from "../../modules";
+import { capitalizeFirstLetterOfEachWord } from "../../shared";
 
 type CatchStatus = "success" | "failed";
 const catchStatus: CatchStatus[] = ["success", "failed"];
@@ -16,8 +17,34 @@ const catchPokemon = (statusList: CatchStatus[]) =>
   statusList[Math.floor(Math.random() * statusList.length)];
 
 const PokemonDetailPageContainer: NextPage = () => {
+  const router = useRouter();
+  const pokemonId = router.query?.pokemonId
+    ? Number(router.query?.pokemonId)
+    : NaN;
+  const inValidSlug = isNaN(pokemonId);
+
   const { setModal } = useModal();
   const { setToast } = useNotificationToast();
+
+  const pokemonDetailQuery = usePokemonDetail({
+    pokemonId: inValidSlug ? 0 : pokemonId,
+  });
+
+  if (inValidSlug) {
+    return null;
+  }
+  const isLoading = pokemonDetailQuery.loading;
+  const pokemonName = pokemonDetailQuery.data?.pokemon_v2_pokemon_by_pk.name
+    ? capitalizeFirstLetterOfEachWord(
+        pokemonDetailQuery.data?.pokemon_v2_pokemon_by_pk.name
+      )
+    : "Empty";
+  const pokemonMoves = pokemonDetailQuery.data
+    ? pokemonMoveListToTagPokemonMoveList(pokemonDetailQuery.data)
+    : [];
+  const pokemonTypes = pokemonDetailQuery.data
+    ? pokemonTypeListToTagPokemonTypeList(pokemonDetailQuery.data)
+    : [];
 
   const handleSuccessCatch = () => {
     setToast({
@@ -55,10 +82,12 @@ const PokemonDetailPageContainer: NextPage = () => {
       </Head>
 
       <PokemonDetailPage
-        heroImageSrc={heroImageSrc}
+        isLoading={isLoading}
+        heroImageSrc={getPokemonImageSrc(pokemonId)}
         heroImageAlt={pokemonName}
         pokemonMovesList={pokemonMoves}
         pokemonTypeList={pokemonTypes}
+        pokemonName={pokemonName}
         onCatchPokemon={handleClickCatchPokemon}
       />
     </>

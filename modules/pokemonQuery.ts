@@ -20,4 +20,25 @@ const GET_POKEMON_LIST = gql`
   }
 `;
 
-export { GET_POKEMON_LIST };
+const GET_POKEMON_DETAIL = gql`
+  query samplePokeAPIquery($pokemonId: Int!) {
+    pokemon_v2_pokemon_by_pk(id: $pokemonId) {
+      name
+      id
+      pokemon_v2_pokemontypes(distinct_on: type_id) {
+        pokemon_v2_type {
+          name
+        }
+        id
+      }
+      pokemon_v2_pokemonmoves(distinct_on: move_id) {
+        pokemon_v2_move {
+          name
+        }
+        move_id
+      }
+    }
+  }
+`;
+
+export { GET_POKEMON_LIST, GET_POKEMON_DETAIL };
