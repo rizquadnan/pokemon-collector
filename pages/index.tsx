@@ -4,18 +4,20 @@ import { pokemonListToCardPokemonList, usePokemonList } from "../modules";
 import {
   PokemonListPage,
   Pagination,
-  SearchInput,
   ITEM_PER_PAGE,
+  SearchContainer,
 } from "../components";
 import { useState } from "react";
 import { getPageOffset, getTotalPages } from "../shared";
 
 const Home: NextPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchValue, setSearchValue] = useState("");
 
   const pokemonListQuery = usePokemonList({
     limit: ITEM_PER_PAGE,
     offset: getPageOffset(currentPage, ITEM_PER_PAGE),
+    searchValue,
   });
   const pokemonList = pokemonListQuery.data?.pokemon_v2_pokemon
     ? pokemonListToCardPokemonList(pokemonListQuery.data)
@@ -24,20 +26,12 @@ const Home: NextPage = () => {
   const totalItems =
     pokemonListQuery.data?.pokemon_v2_pokemon_aggregate.aggregate.count ?? 0;
 
-  const [searchValue, setSearchValue] = useState("");
+  const handleSearch = (searchValue: string) => {
+    setSearchValue(searchValue);
+  };
 
   const renderSearchInput = () => {
-    return (
-      <SearchInput
-        value={searchValue}
-        label="Search pokemon"
-        placeholder="Search pokemon here"
-        clearLabel="Clear"
-        onChange={(e) => setSearchValue(e.target.value)}
-        onClear={() => setSearchValue("")}
-        onSearch={() => console.log("Search!")}
-      />
-    );
+    return <SearchContainer onSearch={handleSearch} />;
   };
 
   const renderPagination = () => {

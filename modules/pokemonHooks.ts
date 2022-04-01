@@ -5,7 +5,11 @@ import { GET_POKEMON_LIST } from "./pokemonQuery";
 
 const usePokemonList = (params: GetPokemonListRequest) => {
   return useQuery<GetPokemonListResponse>(GET_POKEMON_LIST, {
-    variables: { limit: params.limit, offset: params.offset },
+    variables: {
+      limit: params.limit,
+      offset: params.offset,
+      searchValue: params.searchValue ?? "",
+    },
   });
 };
 

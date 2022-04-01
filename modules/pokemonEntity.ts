@@ -3,6 +3,7 @@ import { CardPokemonProps } from "../components";
 type GetPokemonListRequest = {
   limit: number;
   offset: number;
+  searchValue?: string;
 };
 
 type PokemonListItem = {
