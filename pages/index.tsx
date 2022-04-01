@@ -9,8 +9,11 @@ import {
 } from "../components";
 import { useState } from "react";
 import { getPageOffset, getTotalPages } from "../shared";
+import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
+  const router = useRouter();
+
   const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState("");
 
@@ -28,6 +31,10 @@ const Home: NextPage = () => {
 
   const handleSearch = (searchValue: string) => {
     setSearchValue(searchValue);
+  };
+
+  const handleClickDetail = (itemId: number) => {
+    router.push(`/pokemon/${itemId}`);
   };
 
   const renderSearchInput = () => {
@@ -58,6 +65,7 @@ const Home: NextPage = () => {
         renderSearchInput={renderSearchInput}
         renderPagination={renderPagination}
         variant="home-page"
+        onClickDetail={handleClickDetail}
       />
     </>
   );

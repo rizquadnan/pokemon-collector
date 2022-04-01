@@ -32,6 +32,7 @@ const Home: NextPage = () => {
         pokemonList={pokemonList}
         renderSearchInput={renderSearchInput}
         variant="my-pokemon-page"
+        onClickDetail={(itemId) => console.log(itemId)}
       />
     </>
   );

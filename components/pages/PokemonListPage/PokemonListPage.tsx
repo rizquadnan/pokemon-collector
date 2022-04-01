@@ -14,6 +14,7 @@ type PokemonListPageProps = {
   renderSearchInput: () => ReactNode;
   renderPagination?: () => ReactNode;
   isLoading?: boolean;
+  onClickDetail: (itemId: number) => void;
   variant: "home-page" | "my-pokemon-page";
 };
 
@@ -105,7 +106,7 @@ const PokemonListPage = (props: PokemonListPageProps) => {
                     : "detail-only"
                 }
                 onClickRelease={() => null}
-                onClickDetail={() => console.log("detail clicked", item.id)}
+                onClickDetail={() => props.onClickDetail(item.id)}
               />
             ))}
           </PokemonItemContainer>

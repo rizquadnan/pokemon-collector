@@ -15,4 +15,5 @@ export const requiredProps: PokemonListPageProps = {
     />
   ),
   variant: "home-page",
+  onClickDetail: (itemId) => console.log(itemId),
 };
