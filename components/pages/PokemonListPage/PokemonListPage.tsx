@@ -11,7 +11,8 @@ import { CardPokemonItem } from "../../../modules";
 
 type PokemonListPageProps = {
   pokemonList: CardPokemonItem[];
-  renderSearchInput: () => ReactNode;
+  myPokemonListCount: number;
+  renderSearchInput?: () => ReactNode;
   renderPagination?: () => ReactNode;
   isLoading?: boolean;
   onClickDetail: (itemId: number) => void;
@@ -69,13 +70,15 @@ const PokemonListPage = (props: PokemonListPageProps) => {
             Collect your favourite pokemon!
           </Title>
 
-          <Headline as="h2">My owned pokemon: 0</Headline>
+          <Headline as="h2">
+            My owned pokemon: {props.myPokemonListCount}
+          </Headline>
         </Hero>
       )}
 
       {props.variant === "my-pokemon-page" && (
         <Headline css={{ marginTop: theme.spacings.giga }} as="h2">
-          My owned pokemon: 0
+          My owned pokemon: {props.myPokemonListCount}
         </Headline>
       )}
 
@@ -85,15 +88,17 @@ const PokemonListPage = (props: PokemonListPageProps) => {
         </LoadingContainer>
       ) : (
         <>
-          <div
-            css={{
-              marginTop:
-                props.variant === "my-pokemon-page" ? theme.spacings.giga : 0,
-              marginBottom: theme.spacings.giga,
-            }}
-          >
-            {props.renderSearchInput()}
-          </div>
+          {props.renderSearchInput && (
+            <div
+              css={{
+                marginTop:
+                  props.variant === "my-pokemon-page" ? theme.spacings.giga : 0,
+                marginBottom: theme.spacings.giga,
+              }}
+            >
+              {props.renderSearchInput()}
+            </div>
+          )}
 
           <PokemonItemContainer css={{ marginBottom: theme.spacings.giga }}>
             {props.pokemonList.map((item, index) => (

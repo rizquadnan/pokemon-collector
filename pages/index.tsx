@@ -60,6 +60,7 @@ const Home: NextPage = () => {
       </Head>
 
       <PokemonListPage
+        myPokemonListCount={0}
         isLoading={isLoading}
         pokemonList={pokemonList}
         renderSearchInput={renderSearchInput}

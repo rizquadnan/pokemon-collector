@@ -1,25 +1,8 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { PokemonListPage, pokemonList, SearchInput } from "../components";
-import { useState } from "react";
+import { PokemonListPage, pokemonList } from "../components";
 
 const Home: NextPage = () => {
-  const [searchValue, setSearchValue] = useState("");
-
-  const renderSearchInput = () => {
-    return (
-      <SearchInput
-        value={searchValue}
-        label="Search pokemon"
-        placeholder="Search pokemon here"
-        clearLabel="Clear"
-        onChange={(e) => setSearchValue(e.target.value)}
-        onClear={() => setSearchValue("")}
-        onSearch={() => console.log("Search!")}
-      />
-    );
-  };
-
   return (
     <>
       <Head>
@@ -30,7 +13,7 @@ const Home: NextPage = () => {
 
       <PokemonListPage
         pokemonList={pokemonList}
-        renderSearchInput={renderSearchInput}
+        myPokemonListCount={0}
         variant="my-pokemon-page"
         onClickDetail={(itemId) => console.log(itemId)}
       />
