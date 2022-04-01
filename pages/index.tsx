@@ -1,39 +1,52 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useAllPokemon } from "../modules";
+import { pokemonListToCardPokemonList, usePokemonList } from "../modules";
 import {
   PokemonListPage,
   Pagination,
-  pokemonList,
-  SearchInput,
+  ITEM_PER_PAGE,
+  SearchContainer,
 } from "../components";
 import { useState } from "react";
+import { getPageOffset, getTotalPages } from "../shared";
+import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
-  const allPokemon = useAllPokemon();
-  console.log("allPokemon", allPokemon);
+  const router = useRouter();
 
+  const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState("");
 
+  const pokemonListQuery = usePokemonList({
+    limit: ITEM_PER_PAGE,
+    offset: getPageOffset(currentPage, ITEM_PER_PAGE),
+    searchValue,
+  });
+  const pokemonList = pokemonListQuery.data?.pokemon_v2_pokemon
+    ? pokemonListToCardPokemonList(pokemonListQuery.data)
+    : [];
+  const isLoading = pokemonListQuery.loading;
+  const totalItems =
+    pokemonListQuery.data?.pokemon_v2_pokemon_aggregate.aggregate.count ?? 0;
+
+  const handleSearch = (searchValue: string) => {
+    setSearchValue(searchValue);
+  };
+
+  const handleClickDetail = (itemId: number) => {
+    router.push(`/pokemon/${itemId}`);
+  };
+
   const renderSearchInput = () => {
-    return (
-      <SearchInput
-        value={searchValue}
-        label="Search pokemon"
-        placeholder="Search pokemon here"
-        clearLabel="Clear"
-        onChange={(e) => setSearchValue(e.target.value)}
-        onClear={() => setSearchValue("")}
-        onSearch={() => console.log("Search!")}
-      />
-    );
+    return <SearchContainer onSearch={handleSearch} />;
   };
 
   const renderPagination = () => {
     return (
       <Pagination
-        totalPages={10}
-        onChange={(pageNum) => console.log(pageNum)}
+        currentPage={currentPage}
+        totalPages={getTotalPages(totalItems, ITEM_PER_PAGE)}
+        onChange={(pageNum) => setCurrentPage(pageNum)}
       />
     );
   };
@@ -47,10 +60,12 @@ const Home: NextPage = () => {
       </Head>
 
       <PokemonListPage
+        isLoading={isLoading}
         pokemonList={pokemonList}
         renderSearchInput={renderSearchInput}
         renderPagination={renderPagination}
         variant="home-page"
+        onClickDetail={handleClickDetail}
       />
     </>
   );
