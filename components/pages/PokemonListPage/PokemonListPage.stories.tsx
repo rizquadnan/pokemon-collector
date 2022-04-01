@@ -1,15 +1,15 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { Pagination } from "../../Pagination";
-import { HomePage } from "./HomePage";
+import { PokemonListPage } from "./PokemonListPage";
 import { requiredProps } from "./requiredProps";
 
 export default {
-  title: "Pages / HomePage",
-  component: HomePage,
-} as ComponentMeta<typeof HomePage>;
+  title: "Pages / PokemonListPage",
+  component: PokemonListPage,
+} as ComponentMeta<typeof PokemonListPage>;
 
-const Template: ComponentStory<typeof HomePage> = (args) => (
-  <HomePage {...args} />
+const Template: ComponentStory<typeof PokemonListPage> = (args) => (
+  <PokemonListPage {...args} />
 );
 
 export const Default = Template.bind({});

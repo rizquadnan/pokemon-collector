@@ -1,8 +1,8 @@
 import { SearchInput } from "../..";
-import { HomePageProps } from "./HomePage";
+import { PokemonListPageProps } from "./PokemonListPage";
 import { pokemonList } from "./mockData";
 
-export const requiredProps: HomePageProps = {
+export const requiredProps: PokemonListPageProps = {
   pokemonList: pokemonList,
   renderSearchInput: () => (
     <SearchInput

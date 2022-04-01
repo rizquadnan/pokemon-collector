@@ -8,7 +8,7 @@ import { CardPokemon, CardPokemonProps } from "../../CardPokemon";
 import { Layout } from "../shared";
 import { mediaQueries } from "../../../shared";
 
-type HomePageProps = {
+type PokemonListPageProps = {
   pokemonList: CardPokemonProps[];
   renderSearchInput: () => ReactNode;
   renderPagination?: () => ReactNode;
@@ -33,7 +33,7 @@ const PokemonItemContainer = styled.section({
   },
 });
 
-const HomePage = (props: HomePageProps) => {
+const PokemonListPage = (props: PokemonListPageProps) => {
   const theme = useTheme();
 
   return (
@@ -100,5 +100,5 @@ const HomePage = (props: HomePageProps) => {
   );
 };
 
-export type { HomePageProps };
-export { HomePage };
+export type { PokemonListPageProps };
+export { PokemonListPage };
