@@ -10,5 +10,6 @@ export * from "./Input";
 export * from "./Tag";
 export * from "./Pagination";
 export * from "./SearchInput";
+export * from "./CustomLink";
 
 export * from "./pages";
