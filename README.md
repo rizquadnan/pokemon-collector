@@ -10,6 +10,10 @@ Built with: <br />
 - React Testing Library
 - Storybook
 - Chromatic (UI Regression Testing)
+- Eslint
+- Prettier
+- Husky
+- Commitlint
 
 # How to run
 ## Prerequiste
