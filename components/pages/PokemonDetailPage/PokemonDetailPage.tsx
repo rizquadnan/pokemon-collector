@@ -4,7 +4,7 @@
 import { jsx } from "@emotion/react";
 
 import styled from "@emotion/styled";
-import { Headline, useModal } from "@sumup/circuit-ui";
+import { Headline, Spinner, useModal } from "@sumup/circuit-ui";
 import { useTheme } from "@emotion/react";
 
 import { Image, Tag, Title } from "../..";
@@ -25,9 +25,11 @@ type PokemonType = {
 type PokemonDetailPageProps = {
   heroImageSrc: string;
   heroImageAlt: string;
+  pokemonName: string;
   pokemonTypeList: PokemonType[];
   pokemonMovesList: PokemonMove[];
   onCatchPokemon: () => void;
+  isLoading?: boolean;
 };
 
 const Hero = styled.section(
@@ -57,11 +59,11 @@ const CatchButtonContainer = styled.section((props) => ({
   right: props.theme.spacings.mega,
 }));
 
-const PokemonDetailPage = (props: PokemonDetailPageProps) => {
+const Content = (props: Omit<PokemonDetailPageProps, "isLoading">) => {
   const theme = useTheme();
 
   return (
-    <Layout>
+    <>
       <Hero>
         <Title
           as="h1"
@@ -79,7 +81,7 @@ const PokemonDetailPage = (props: PokemonDetailPageProps) => {
             marginBottom: theme.spacings.giga,
           }}
         >
-          Charmander
+          {props.pokemonName}
         </Title>
         <Image
           src={props.heroImageSrc}
@@ -112,6 +114,27 @@ const PokemonDetailPage = (props: PokemonDetailPageProps) => {
           Catch this Pokemon
         </Button>
       </CatchButtonContainer>
+    </>
+  );
+};
+
+const LoadingContainer = styled.section({
+  height: "90vh",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+});
+
+const PokemonDetailPage = (props: PokemonDetailPageProps) => {
+  return (
+    <Layout>
+      {props.isLoading ? (
+        <LoadingContainer>
+          <Spinner />
+        </LoadingContainer>
+      ) : (
+        <Content {...props} />
+      )}
     </Layout>
   );
 };

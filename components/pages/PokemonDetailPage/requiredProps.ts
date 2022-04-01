@@ -7,4 +7,5 @@ export const requiredProps: PokemonDetailPageProps = {
   pokemonMovesList: pokemonMoves,
   pokemonTypeList: pokemonTypes,
   onCatchPokemon: () => console.log("catch"),
+  pokemonName,
 };
