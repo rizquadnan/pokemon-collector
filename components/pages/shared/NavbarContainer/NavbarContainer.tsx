@@ -1,21 +1,12 @@
+// TODO: find way to enable emotion css props in storybook
+// without jsx pragma below
+/** @jsxImportSource @emotion/react */
+import { jsx } from "@emotion/react";
+
 import { css } from "@emotion/react";
-import styled from "@emotion/styled";
 import { useModal } from "@sumup/circuit-ui";
 import { Theme } from "@sumup/design-tokens";
-import { ReactNode } from "react";
-import { APPLICATION_MAX_WIDTH, NAVBAR_HEIGHT } from "../../shared";
-import { Menu } from "../Menu";
-import { Navbar } from "../Navbar";
-
-type LayoutProps = {
-  children: ReactNode;
-};
-
-const Container = styled.main({
-  maxWidth: APPLICATION_MAX_WIDTH,
-  margin: "0 auto",
-  padding: `${NAVBAR_HEIGHT} 20px 40px 20px`,
-});
+import { Menu, Navbar } from "../../..";
 
 const NavbarContainer = () => {
   const { setModal } = useModal();
@@ -46,13 +37,4 @@ const NavbarContainer = () => {
   );
 };
 
-const Layout = (props: LayoutProps) => {
-  return (
-    <Container>
-      <NavbarContainer />
-      {props.children}
-    </Container>
-  );
-};
-
-export { Layout };
+export { NavbarContainer };
