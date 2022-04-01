@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Headline } from "@sumup/circuit-ui";
+import { Headline, Spinner } from "@sumup/circuit-ui";
 import { ReactNode } from "react";
 import { useTheme } from "@emotion/react";
 
@@ -7,11 +7,13 @@ import { Title } from "../..";
 import { CardPokemon, CardPokemonProps } from "../../CardPokemon";
 import { Layout } from "../shared";
 import { mediaQueries } from "../../../shared";
+import { CardPokemonItem } from "../../../modules";
 
 type PokemonListPageProps = {
-  pokemonList: CardPokemonProps[];
+  pokemonList: CardPokemonItem[];
   renderSearchInput: () => ReactNode;
   renderPagination?: () => ReactNode;
+  isLoading?: boolean;
   variant: "home-page" | "my-pokemon-page";
 };
 
@@ -31,6 +33,13 @@ const PokemonItemContainer = styled.section({
     gridTemplateColumns: "repeat(auto-fill, minmax(300px , 1fr))",
     gap: "16px",
   },
+});
+
+const LoadingContainer = styled.section({
+  height: "100%",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
 });
 
 const PokemonListPage = (props: PokemonListPageProps) => {
@@ -68,34 +77,44 @@ const PokemonListPage = (props: PokemonListPageProps) => {
           My owned pokemon: 0
         </Headline>
       )}
-      <div
-        css={{
-          marginTop:
-            props.variant === "my-pokemon-page" ? theme.spacings.giga : 0,
-          marginBottom: theme.spacings.giga,
-        }}
-      >
-        {props.renderSearchInput()}
-      </div>
 
-      <PokemonItemContainer css={{ marginBottom: theme.spacings.giga }}>
-        {props.pokemonList.map((item, index) => (
-          <CardPokemon
-            key={`${index}-${item.title}`}
-            {...item}
-            variant={
-              props.variant === "my-pokemon-page"
-                ? "with-release"
-                : "detail-only"
-            }
-            onClickRelease={() => null}
-          />
-        ))}
-      </PokemonItemContainer>
+      {props.isLoading ? (
+        <LoadingContainer>
+          <Spinner />
+        </LoadingContainer>
+      ) : (
+        <>
+          <div
+            css={{
+              marginTop:
+                props.variant === "my-pokemon-page" ? theme.spacings.giga : 0,
+              marginBottom: theme.spacings.giga,
+            }}
+          >
+            {props.renderSearchInput()}
+          </div>
 
-      {props.variant === "home-page" &&
-        props.renderPagination &&
-        props.renderPagination()}
+          <PokemonItemContainer css={{ marginBottom: theme.spacings.giga }}>
+            {props.pokemonList.map((item, index) => (
+              <CardPokemon
+                key={`${index}-${item.id}`}
+                {...item}
+                variant={
+                  props.variant === "my-pokemon-page"
+                    ? "with-release"
+                    : "detail-only"
+                }
+                onClickRelease={() => null}
+                onClickDetail={() => console.log("detail clicked", item.id)}
+              />
+            ))}
+          </PokemonItemContainer>
+
+          {props.variant === "home-page" &&
+            props.renderPagination &&
+            props.renderPagination()}
+        </>
+      )}
     </Layout>
   );
 };

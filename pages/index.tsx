@@ -1,17 +1,28 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useAllPokemon } from "../modules";
+import { pokemonListToCardPokemonList, usePokemonList } from "../modules";
 import {
   PokemonListPage,
   Pagination,
-  pokemonList,
   SearchInput,
+  ITEM_PER_PAGE,
 } from "../components";
 import { useState } from "react";
+import { getPageOffset, getTotalPages } from "../shared";
 
 const Home: NextPage = () => {
-  const allPokemon = useAllPokemon();
-  console.log("allPokemon", allPokemon);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const pokemonListQuery = usePokemonList({
+    limit: ITEM_PER_PAGE,
+    offset: getPageOffset(currentPage, ITEM_PER_PAGE),
+  });
+  const pokemonList = pokemonListQuery.data?.pokemon_v2_pokemon
+    ? pokemonListToCardPokemonList(pokemonListQuery.data)
+    : [];
+  const isLoading = pokemonListQuery.loading;
+  const totalItems =
+    pokemonListQuery.data?.pokemon_v2_pokemon_aggregate.aggregate.count ?? 0;
 
   const [searchValue, setSearchValue] = useState("");
 
@@ -32,8 +43,9 @@ const Home: NextPage = () => {
   const renderPagination = () => {
     return (
       <Pagination
-        totalPages={10}
-        onChange={(pageNum) => console.log(pageNum)}
+        currentPage={currentPage}
+        totalPages={getTotalPages(totalItems, ITEM_PER_PAGE)}
+        onChange={(pageNum) => setCurrentPage(pageNum)}
       />
     );
   };
@@ -47,6 +59,7 @@ const Home: NextPage = () => {
       </Head>
 
       <PokemonListPage
+        isLoading={isLoading}
         pokemonList={pokemonList}
         renderSearchInput={renderSearchInput}
         renderPagination={renderPagination}
