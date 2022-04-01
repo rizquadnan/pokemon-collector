@@ -11,6 +11,7 @@ const Container = styled.main({
   maxWidth: APPLICATION_MAX_WIDTH,
   margin: "0 auto",
   padding: `${NAVBAR_HEIGHT} 20px 40px 20px`,
+  minHeight: "100vh",
 });
 
 const Layout = (props: LayoutProps) => {
