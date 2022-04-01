@@ -1,5 +1,7 @@
 # About
 Collect your favourite pokemons! <br />
+<img width="640" alt="Home page screen capture" src="https://user-images.githubusercontent.com/52435643/161299516-ad9b2522-8abe-4572-a4f8-fc1008d1b7e9.png">
+
 ## Built with
 - Typescript
 - Fully React Function Component + React Hooks
