@@ -6,6 +6,7 @@ import { PokemonDetailPage, PokemonDetailModalContent } from "../../components";
 import {
   CardPokemonItem,
   getPokemonImageSrc,
+  MY_POKEMON_LIST_STORAGE_KEY,
   pokemonMoveListToTagPokemonMoveList,
   pokemonTypeListToTagPokemonTypeList,
   usePokemonDetail,
@@ -28,7 +29,7 @@ const PokemonDetailPageContainer: NextPage = () => {
   const { setToast } = useNotificationToast();
 
   const { setValue: setMyPokemonList } = useLocalStorage<CardPokemonItem[]>(
-    "my-pokemon-list",
+    MY_POKEMON_LIST_STORAGE_KEY,
     []
   );
 

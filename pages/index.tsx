@@ -14,12 +14,13 @@ import {
 import { useState } from "react";
 import { getPageOffset, getTotalPages, useLocalStorage } from "../shared";
 import { useRouter } from "next/router";
+import { MY_POKEMON_LIST_STORAGE_KEY } from "../modules/pokemonConstant";
 
 const Home: NextPage = () => {
   const router = useRouter();
 
   const { value: myPokemonList } = useLocalStorage<CardPokemonItem[]>(
-    "my-pokemon-list",
+    MY_POKEMON_LIST_STORAGE_KEY,
     []
   );
 

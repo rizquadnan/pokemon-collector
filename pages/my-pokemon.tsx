@@ -1,12 +1,12 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { PokemonListPage, pokemonList } from "../components";
-import { CardPokemonItem } from "../modules";
+import { CardPokemonItem, MY_POKEMON_LIST_STORAGE_KEY } from "../modules";
 import { useLocalStorage } from "../shared";
 
 const Home: NextPage = () => {
   const { value: myPokemonList } = useLocalStorage<CardPokemonItem[]>(
-    "my-pokemon-list",
+    MY_POKEMON_LIST_STORAGE_KEY,
     []
   );
 
