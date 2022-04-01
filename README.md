@@ -1,11 +1,14 @@
 # About
 Collect your favourite pokemons! <br />
 Built with: <br />
+- Typescript
+- Fully React Function Component + React Hooks
 - Next.js
 - Poke API GraphQL
 - Apollo Client
 - Emotion (CSS-in-JS)
 - Circuit UI
+- Local Storage API
 
 The codebase is maintained with help of: <br />
 - Jest
