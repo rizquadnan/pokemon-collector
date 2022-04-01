@@ -6,6 +6,8 @@ Built with: <br />
 - Apollo Client
 - Emotion (CSS-in-JS)
 - Circuit UI
+
+The codebase is maintained with help of: <br />
 - Jest
 - React Testing Library
 - Storybook
