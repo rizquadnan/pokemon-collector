@@ -11,7 +11,8 @@ import { mediaQueries } from "../../../shared";
 type HomePageProps = {
   pokemonList: CardPokemonProps[];
   renderSearchInput: () => ReactNode;
-  renderPagination: () => ReactNode;
+  renderPagination?: () => ReactNode;
+  variant: "home-page" | "my-pokemon-page";
 };
 
 const Hero = styled.section(
@@ -37,30 +38,43 @@ const HomePage = (props: HomePageProps) => {
 
   return (
     <Layout>
-      <Hero>
-        <Title
-          as="h1"
-          css={{
-            fontSize: "64px",
-            lineHeight: "64px",
-            [mediaQueries[0]]: {
-              fontSize: "92px",
-              lineHeight: "92px",
-            },
-            [mediaQueries[1]]: {
-              fontSize: "110px",
-              lineHeight: "110px",
-            },
-            marginBottom: theme.spacings.giga,
-          }}
-        >
-          Collect your favourite pokemon!
-        </Title>
+      {props.variant === "home-page" && (
+        <Hero>
+          <Title
+            as="h1"
+            css={{
+              fontSize: "64px",
+              lineHeight: "64px",
+              [mediaQueries[0]]: {
+                fontSize: "92px",
+                lineHeight: "92px",
+              },
+              [mediaQueries[1]]: {
+                fontSize: "110px",
+                lineHeight: "110px",
+              },
+              marginBottom: theme.spacings.giga,
+            }}
+          >
+            Collect your favourite pokemon!
+          </Title>
 
-        <Headline as="h2">My owned pokemon: 0</Headline>
-      </Hero>
+          <Headline as="h2">My owned pokemon: 0</Headline>
+        </Hero>
+      )}
 
-      <div css={{ marginBottom: theme.spacings.giga }}>
+      {props.variant === "my-pokemon-page" && (
+        <Headline css={{ marginTop: theme.spacings.giga }} as="h2">
+          My owned pokemon: 0
+        </Headline>
+      )}
+      <div
+        css={{
+          marginTop:
+            props.variant === "my-pokemon-page" ? theme.spacings.giga : 0,
+          marginBottom: theme.spacings.giga,
+        }}
+      >
         {props.renderSearchInput()}
       </div>
 
@@ -69,13 +83,19 @@ const HomePage = (props: HomePageProps) => {
           <CardPokemon
             key={`${index}-${item.title}`}
             {...item}
-            variant="with-release"
+            variant={
+              props.variant === "my-pokemon-page"
+                ? "with-release"
+                : "detail-only"
+            }
             onClickRelease={() => null}
           />
         ))}
       </PokemonItemContainer>
 
-      {props.renderPagination()}
+      {props.variant === "home-page" &&
+        props.renderPagination &&
+        props.renderPagination()}
     </Layout>
   );
 };
