@@ -1,9 +1,9 @@
 import { render } from "../../../tesUtils"; // TODO: replace this with absolute import
-import { HomePage } from "./HomePage";
+import { PokemonListPage } from "./PokemonListPage";
 import { requiredProps } from "./requiredProps";
-describe("HomePage", () => {
+describe("PokemonListPage", () => {
   it("renders successfully", () => {
-    const { baseElement } = render(<HomePage {...requiredProps} />);
+    const { baseElement } = render(<PokemonListPage {...requiredProps} />);
 
     expect(baseElement).toBeTruthy();
   });

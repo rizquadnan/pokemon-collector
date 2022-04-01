@@ -1,8 +1,8 @@
-import { SearchInput, Pagination } from "../..";
-import { HomePageProps } from "./HomePage";
+import { SearchInput } from "../..";
+import { PokemonListPageProps } from "./PokemonListPage";
 import { pokemonList } from "./mockData";
 
-export const requiredProps: HomePageProps = {
+export const requiredProps: PokemonListPageProps = {
   pokemonList: pokemonList,
   renderSearchInput: () => (
     <SearchInput
@@ -14,7 +14,5 @@ export const requiredProps: HomePageProps = {
       onSearch={() => console.log("Search!")}
     />
   ),
-  renderPagination: () => (
-    <Pagination totalPages={10} onChange={(pageNum) => console.log(pageNum)} />
-  ),
+  variant: "home-page",
 };
