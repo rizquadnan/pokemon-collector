@@ -1,23 +1,25 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { PokemonListPage, pokemonList, SearchInput } from "../components";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { PokemonListPage } from "../components";
+import { CardPokemonItem, MY_POKEMON_LIST_STORAGE_KEY } from "../modules";
+import { useLocalStorage } from "../shared";
 
 const Home: NextPage = () => {
-  const [searchValue, setSearchValue] = useState("");
+  const router = useRouter();
 
-  const renderSearchInput = () => {
-    return (
-      <SearchInput
-        value={searchValue}
-        label="Search pokemon"
-        placeholder="Search pokemon here"
-        clearLabel="Clear"
-        onChange={(e) => setSearchValue(e.target.value)}
-        onClear={() => setSearchValue("")}
-        onSearch={() => console.log("Search!")}
-      />
+  const { value: myPokemonList, setValue: setMyPokemonList } = useLocalStorage<
+    CardPokemonItem[]
+  >(MY_POKEMON_LIST_STORAGE_KEY, []);
+
+  const handleRelease = (pokemonId: number) => {
+    setMyPokemonList((prevValue) =>
+      prevValue.filter((item) => item.id !== pokemonId)
     );
+  };
+
+  const handleClickDetail = (itemId: number) => {
+    router.push(`/pokemon/${itemId}`);
   };
 
   return (
@@ -29,10 +31,11 @@ const Home: NextPage = () => {
       </Head>
 
       <PokemonListPage
-        pokemonList={pokemonList}
-        renderSearchInput={renderSearchInput}
+        pokemonList={myPokemonList}
+        myPokemonListCount={myPokemonList.length}
         variant="my-pokemon-page"
-        onClickDetail={(itemId) => console.log(itemId)}
+        onClickDetail={handleClickDetail}
+        onClickRelease={handleRelease}
       />
     </>
   );

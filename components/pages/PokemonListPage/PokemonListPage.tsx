@@ -4,16 +4,18 @@ import { ReactNode } from "react";
 import { useTheme } from "@emotion/react";
 
 import { Title } from "../..";
-import { CardPokemon, CardPokemonProps } from "../../CardPokemon";
+import { CardPokemon } from "../../CardPokemon";
 import { Layout } from "../shared";
-import { mediaQueries } from "../../../shared";
+import { colors, mediaQueries } from "../../../shared";
 import { CardPokemonItem } from "../../../modules";
 
 type PokemonListPageProps = {
   pokemonList: CardPokemonItem[];
-  renderSearchInput: () => ReactNode;
+  myPokemonListCount: number;
+  renderSearchInput?: () => ReactNode;
   renderPagination?: () => ReactNode;
   isLoading?: boolean;
+  onClickRelease?: (itemId: number) => void;
   onClickDetail: (itemId: number) => void;
   variant: "home-page" | "my-pokemon-page";
 };
@@ -46,6 +48,8 @@ const LoadingContainer = styled.section({
 const PokemonListPage = (props: PokemonListPageProps) => {
   const theme = useTheme();
 
+  const resolvedOnClickRelease = props.onClickRelease ?? ((_) => null);
+
   return (
     <Layout>
       {props.variant === "home-page" && (
@@ -64,18 +68,24 @@ const PokemonListPage = (props: PokemonListPageProps) => {
                 lineHeight: "110px",
               },
               marginBottom: theme.spacings.giga,
+              color: colors.secondary,
             }}
           >
             Collect your favourite pokemon!
           </Title>
 
-          <Headline as="h2">My owned pokemon: 0</Headline>
+          <Headline as="h2" css={{ color: theme.colors.bodyBg }}>
+            My owned pokemon: {props.myPokemonListCount}
+          </Headline>
         </Hero>
       )}
 
       {props.variant === "my-pokemon-page" && (
-        <Headline css={{ marginTop: theme.spacings.giga }} as="h2">
-          My owned pokemon: 0
+        <Headline
+          css={{ marginTop: theme.spacings.giga, color: colors.secondary }}
+          as="h2"
+        >
+          My owned pokemon: {props.myPokemonListCount}
         </Headline>
       )}
 
@@ -85,15 +95,17 @@ const PokemonListPage = (props: PokemonListPageProps) => {
         </LoadingContainer>
       ) : (
         <>
-          <div
-            css={{
-              marginTop:
-                props.variant === "my-pokemon-page" ? theme.spacings.giga : 0,
-              marginBottom: theme.spacings.giga,
-            }}
-          >
-            {props.renderSearchInput()}
-          </div>
+          {props.renderSearchInput && (
+            <div
+              css={{
+                marginTop:
+                  props.variant === "my-pokemon-page" ? theme.spacings.giga : 0,
+                marginBottom: theme.spacings.giga,
+              }}
+            >
+              {props.renderSearchInput()}
+            </div>
+          )}
 
           <PokemonItemContainer css={{ marginBottom: theme.spacings.giga }}>
             {props.pokemonList.map((item, index) => (
@@ -105,7 +117,7 @@ const PokemonListPage = (props: PokemonListPageProps) => {
                     ? "with-release"
                     : "detail-only"
                 }
-                onClickRelease={() => null}
+                onClickRelease={() => resolvedOnClickRelease(item.id)}
                 onClickDetail={() => props.onClickDetail(item.id)}
               />
             ))}

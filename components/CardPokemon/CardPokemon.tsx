@@ -25,17 +25,17 @@ const Container = styled.article<ContainerProps>((props) => ({
   alignItems: "center",
   padding: "0 20px",
   height: "140px",
-  boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
   borderRadius: "24px",
   "& > *:first-child": {
     marginRight: "auto",
   },
+  backgroundColor: props.theme.colors.bodyBg,
 }));
 
 const VerticalContainer = styled.div({
   display: "flex",
   flexDirection: "column",
-  width: "120px",
+  width: "165px",
 });
 
 const ButtonContainer = styled.footer({

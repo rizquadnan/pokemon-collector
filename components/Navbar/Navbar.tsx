@@ -1,4 +1,6 @@
+import { useTheme } from "@emotion/react";
 import { Hamburger, Header } from "@sumup/circuit-ui";
+import { colors } from "../../shared";
 import { DEFAULT_TITLE, MENU_BUTTON_ROLE_NAME } from "./constants";
 
 interface NavbarProps {
@@ -7,8 +9,18 @@ interface NavbarProps {
 }
 
 const Navbar = ({ title = DEFAULT_TITLE, ...props }: NavbarProps) => {
+  const theme = useTheme();
+
   return (
-    <Header title={title}>
+    <Header
+      title={title}
+      css={{
+        backgroundColor: colors.secondary,
+        "& h1": {
+          color: theme.colors.black,
+        },
+      }}
+    >
       <Hamburger
         activeLabel={MENU_BUTTON_ROLE_NAME.active}
         inactiveLabel={MENU_BUTTON_ROLE_NAME.inactive}

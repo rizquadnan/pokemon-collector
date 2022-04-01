@@ -1,8 +1,10 @@
+import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 import {
   SearchInput as SearchInput_,
   SearchInputProps as SearchInputProps_,
 } from "@sumup/circuit-ui";
+import { colors } from "../../shared";
 import { Button } from "../Button";
 
 type SearchInputProps = SearchInputProps_ & {
@@ -34,7 +36,11 @@ const SearchInput = ({ hideLabel = true, ...props }: SearchInputProps) => {
       <SearchInputContainer>
         <SearchInput_ {...props} hideLabel={hideLabel} />
       </SearchInputContainer>
-      <Button variant="primary" onClick={props.onSearch}>
+      <Button
+        variant="primary"
+        onClick={props.onSearch}
+        css={{ backgroundColor: colors.secondary, border: "none" }}
+      >
         Search
       </Button>
     </Container>
