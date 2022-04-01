@@ -1,6 +1,15 @@
 # About
 Collect your favourite pokemons! <br />
-Built with: Next.js, Poke API GraphQL, Apollo Client, Emotion, Circuit UI, Jest, React Testing Library, Storybook, Chromatic
+Built with: <br />
+- Next.js
+- Poke API GraphQL
+- Apollo Client
+- Emotion (CSS-in-JS)
+- Circuit UI
+- Jest
+- React Testing Library
+- Storybook
+- Chromatic (UI Regression Testing)
 
 # How to run
 ## Prerequiste
