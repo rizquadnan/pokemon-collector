@@ -4,12 +4,13 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { PokemonDetailPage, PokemonDetailModalContent } from "../../components";
 import {
+  CardPokemonItem,
   getPokemonImageSrc,
   pokemonMoveListToTagPokemonMoveList,
   pokemonTypeListToTagPokemonTypeList,
   usePokemonDetail,
 } from "../../modules";
-import { capitalizeFirstLetterOfEachWord } from "../../shared";
+import { capitalizeFirstLetterOfEachWord, useLocalStorage } from "../../shared";
 
 type CatchStatus = "success" | "failed";
 const catchStatus: CatchStatus[] = ["success", "failed"];
@@ -26,6 +27,11 @@ const PokemonDetailPageContainer: NextPage = () => {
   const { setModal } = useModal();
   const { setToast } = useNotificationToast();
 
+  const { setValue: setMyPokemonList } = useLocalStorage<CardPokemonItem[]>(
+    "my-pokemon-list",
+    []
+  );
+
   const pokemonDetailQuery = usePokemonDetail({
     pokemonId: inValidSlug ? 0 : pokemonId,
   });
@@ -33,12 +39,14 @@ const PokemonDetailPageContainer: NextPage = () => {
   if (inValidSlug) {
     return null;
   }
+
   const isLoading = pokemonDetailQuery.loading;
   const pokemonName = pokemonDetailQuery.data?.pokemon_v2_pokemon_by_pk.name
     ? capitalizeFirstLetterOfEachWord(
         pokemonDetailQuery.data?.pokemon_v2_pokemon_by_pk.name
       )
     : "Empty";
+  const pokemonImage = getPokemonImageSrc(pokemonId);
   const pokemonMoves = pokemonDetailQuery.data
     ? pokemonMoveListToTagPokemonMoveList(pokemonDetailQuery.data)
     : [];
@@ -46,7 +54,21 @@ const PokemonDetailPageContainer: NextPage = () => {
     ? pokemonTypeListToTagPokemonTypeList(pokemonDetailQuery.data)
     : [];
 
-  const handleSuccessCatch = () => {
+  const handleSuccessCatch = (pokemonNickname: string) => {
+    setMyPokemonList((prevValue) => {
+      return [
+        ...prevValue,
+        {
+          id: pokemonId,
+          title: pokemonNickname,
+          image: {
+            src: pokemonImage,
+            alt: pokemonName,
+          },
+        },
+      ];
+    });
+
     setToast({
       body: "Named the pokemon!",
     });
@@ -58,8 +80,8 @@ const PokemonDetailPageContainer: NextPage = () => {
       setModal({
         children: (
           <PokemonDetailModalContent
-            onSubmit={() => {
-              handleSuccessCatch();
+            onSubmit={(pokemonNickname) => {
+              handleSuccessCatch(pokemonNickname);
             }}
           />
         ),
@@ -83,7 +105,7 @@ const PokemonDetailPageContainer: NextPage = () => {
 
       <PokemonDetailPage
         isLoading={isLoading}
-        heroImageSrc={getPokemonImageSrc(pokemonId)}
+        heroImageSrc={pokemonImage}
         heroImageAlt={pokemonName}
         pokemonMovesList={pokemonMoves}
         pokemonTypeList={pokemonTypes}
