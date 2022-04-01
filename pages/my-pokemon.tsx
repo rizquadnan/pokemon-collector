@@ -1,12 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useAllPokemon } from "../modules";
-import {
-  PokemonListPage,
-  Pagination,
-  pokemonList,
-  SearchInput,
-} from "../components";
+import { PokemonListPage, pokemonList, SearchInput } from "../components";
 import { useState } from "react";
 
 const Home: NextPage = () => {
