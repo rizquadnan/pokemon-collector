@@ -35,7 +35,7 @@ const Container = styled.article<ContainerProps>((props) => ({
 const VerticalContainer = styled.div({
   display: "flex",
   flexDirection: "column",
-  width: "120px",
+  width: "165px",
 });
 
 const ButtonContainer = styled.footer({
